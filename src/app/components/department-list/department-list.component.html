@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let department of departments">
+        <div class="card m-2">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a
+                [routerLink]="['/department', department.id]"
+                class="btn btn-link"
+                >{{ department.name }}</a
+              >
+            </h5>
+
+            <p class="card-text m-2">
+              Courses: {{ department.courses.length }}
+            </p>
+            <div class="d-flex justify-content-end">
+              <button
+                class="btn btn-primary m-2"
+                (click)="editDepartment(department.id)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-danger m-2"
+                (click)="deleteDepartment(department.id)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <form>
+      <div class="d-flex">
+        <div class="form-group flex-grow-1">
+          <label for="name">Department Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="newDepartment.name"
+          />
+        </div>
+        <button (click)="addDepartment()" class="btn btn-primary ml-1">
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

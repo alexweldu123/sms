@@ -1,21 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  imports: [CommonModule, RouterOutlet, RouterLink],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css',
 })
-export class AppComponent implements OnInit {
+export class HomeComponent implements OnInit {
   currentUrl = '';
-
-  constructor(private router: Router) {}
-
+  constructor(private router: Router, private authService: AuthService) {}
   ngOnInit(): void {
     this.router.events
       .pipe(
@@ -35,5 +38,13 @@ export class AppComponent implements OnInit {
   getBreadcrumbLink(index: number): string {
     const segments = this.getBreadcrumbSegments().slice(0, index + 1);
     return `${segments.join('/')}`;
+  }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  isAdmin(): any {
+    return this.authService.isAdmin();
   }
 }

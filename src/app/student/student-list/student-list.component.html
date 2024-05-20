@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3>Student List</h3>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item" *ngFor="let student of students">
+        <h2 class="accordion-header" [id]="'heading' + student.id">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapse' + student.id"
+            aria-expanded="false"
+            [attr.aria-controls]="'collapse' + student.id"
+          >
+            {{ student.name }}
+          </button>
+        </h2>
+        <div
+          [id]="'collapse' + student.id"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample"
+        >
+          <ul class="list-group list-group-flush accordion-body">
+            <li
+              class="list-group-item"
+              *ngFor="let enrollment of student.enrollments"
+            >
+              <a [routerLink]="['/course', enrollment.course.id]">
+                {{ enrollment.course.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h3>Add Student</h3>
+    <form>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          [(ngModel)]="newStudent.name"
+        />
+      </div>
+      <button class="btn btn-primary" (click)="addStudent()">Add</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-nav mr-auto">
+      <a
+        class="navbar-brand"
+        routerLink="/department"
+        [class.active]="currentUrl === '/department'"
+        >SMS</a
+      >
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="navbar-nav ml-auto">
+        <li
+          class="nav-item"
+          *ngIf="isAdmin()"
+          [class.active]="currentUrl === '/department'"
+        >
+          <a class="nav-link" [routerLink]="['/department']">Department</a>
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="isAdmin()"
+          [class.active]="currentUrl === '/course'"
+        >
+          <a class="nav-link" [routerLink]="['/course']">Course</a>
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="isAdmin()"
+          [class.active]="currentUrl === '/student'"
+        >
+          <a class="nav-link" [routerLink]="['/student']">Student</a>
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="isAdmin()"
+          [class.active]="currentUrl === '/enrollement'"
+        >
+          <a class="nav-link" [routerLink]="['/enrollement']">Enrollement</a>
+        </li>
+        <li class="nav-item ml-auto">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-3">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li
+          class="breadcrumb-item"
+          *ngFor="let segment of getBreadcrumbSegments(); let i = index"
+        >
+          <a class="breadcrumb-link" [routerLink]="getBreadcrumbLink(i)">
+            {{ segment }}
+          </a>
+          <span
+            *ngIf="i < getBreadcrumbSegments().length - 1"
+            class="breadcrumb-divider"
+          ></span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div class="mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

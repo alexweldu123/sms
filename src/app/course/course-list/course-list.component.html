@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Credits</th>
+          <th>Department</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td>
+            <a [routerLink]="['/course', course.id]">{{ course.id }}</a>
+          </td>
+
+          <td>
+            <a [routerLink]="['/course', course.id]">{{ course.title }}</a>
+          </td>
+          <td>{{ course.credits }}</td>
+          <td>
+            {{ getDepartmentName(course) }}
+          </td>
+          <td>
+            <a [routerLink]="['/course', course.id]" class="btn btn-primary m-2"
+              >Edit</a
+            >
+            <button class="btn btn-danger" (click)="deleteCourse(course.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+    <form>
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input
+          type="text"
+          name="title"
+          class="form-control"
+          id="title"
+          [(ngModel)]="newCourse.title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="credits">Credits:</label>
+        <input
+          type="number"
+          class="form-control"
+          name="credits"
+          id="credits"
+          [(ngModel)]="newCourse.credits"
+        />
+      </div>
+      <div class="form-group">
+        <label for="department">Department:</label>
+        <select
+          class="form-control"
+          id="departmentID"
+          name="departmentID"
+          [(ngModel)]="newCourse.departmentID"
+        >
+          <option
+            *ngFor="let department of departments"
+            [value]="department.id"
+          >
+            {{ department.name }}
+          </option>
+        </select>
+      </div>
+      <button class="btn btn-primary" (click)="addCourse()">Add</button>
+    </form>
+  </div>
+</div>
